@@ -13,7 +13,7 @@ class Listener:
     
 
 if __name__ == '__main__':
-    rospy.init_node('listener', anonymous=True)
+    rospy.init_node('homework2_1', anonymous=True)
     Listener()
 
     # spin() simply keeps python from exiting until this node is stopped
