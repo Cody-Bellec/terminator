@@ -3,7 +3,7 @@
 import rospy
 from std_msgs.msg import Float32
 
-class Homework1:
+class hw2:
     def __init__(self):
         rospy.Subscriber("output1", Float32, self.callback)
         self.pub = rospy.Publisher("input", Float32, queue_size=10)
