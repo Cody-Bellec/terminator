@@ -6,7 +6,7 @@ from std_msgs.msg import Float32
 
 class Talker:
     def __init__(self):
-        self.pub = rospy.Publisher('/homework1/delta', Float32, queue_size=10)
+        self.pub = rospy.Publisher('input', Float32, queue_size=10)
     
     def talk(self):
         hello_str = rospy.get_time()
