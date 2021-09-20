@@ -15,11 +15,7 @@ class Homework3:
         else:
             self.mode = 'meters'
     			
-        if self.mode == 'smoots':
-            turnout = data.data * 1.7018
-        elif self.mode == 'feet':
-            turnout = data.data
-        else:
+        if self.mode == 'feet':
             turnout = data.data * 3.2808
 		
             self.pub.publish(turnout)
