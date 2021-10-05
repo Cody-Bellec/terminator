@@ -6,7 +6,7 @@ from mystery_package.msg import UnitsLabelled
 
 class Homework3:
     def __init__(self):
-        rospy.Subscriber("/mystery/output2", Units Labelled, self.callback)
+        rospy.Subscriber("/mystery/output2", UnitsLabelled, self.callback)
         self.pub = rospy.Publisher("/homework3/converted_total", Float32, queue_size=10)
     def callback(self, data):
         		
