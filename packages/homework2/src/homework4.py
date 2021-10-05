@@ -2,18 +2,15 @@
 
 import rospy
 from std_msgs.msg import Float32
-from homework2.msg import hw4
 
-class Homework4:
+class Homework3:
     def __init__(self):
-        rospy.Subscriber("/mystery/output1", Float32, self.callback)
-        self.pub = rospy.Publisher("/homework4/hw4_msg", hw4, queue_size=10)
-        turnout = 0 
-        data.data = 0
+        rospy.Subscriber("/mystery/output2", Float32, self.callback)
+        self.pub = rospy.Publisher("/homework4/converted_total", Float32, queue_size=10)
     def callback(self, data):
-		
-        if rospy.has_param("unit_holder"):
-            self.mode = rospy.get_param("unit_holder")
+        		
+        if rospy.has_param("value"):
+            self.mode = rospy.get_param("value")
         else:
             self.mode = 'meters'
     			
@@ -23,17 +20,17 @@ class Homework4:
             turnout = data.data
         else:
             turnout = data.data * 3.2808
-
-        message = hw4()
-        message.unit_holder = self.mode
-        message.c = turnout
-        		
-        self.pub.publish(msg)
-        rospy.loginfo(msg)
-       	
+		
+            self.pub.publish(turnout)
+            rospy.loginfo("input data: %lf feet. output data: %lf %s", data.data, turnout, self.mode)
+        if rospy.has_param("value"):
+            rospy.has_param("value", self.mode)
+        else:
+            rospy.logwarn("No parameter mode found!")
+		
 if __name__ == '__main__':
-	rospy.init_node('homework4', anonymous=True)
-	Homework4()
+	rospy.init_node('homework3', anonymous=True)
+	Homework3()
 
     # spin() simply keeps python from exiting until this node is stopped
 	rospy.spin()
