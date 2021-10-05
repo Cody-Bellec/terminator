@@ -6,8 +6,8 @@ from homework2.msg import hw4
 
 class Homework4:
     def __init__(self):
-        rospy.Subscriber("/homework1/total", Float32, self.callback)
-        self.pub = rospy.Publisher("hw4_msg", hw4, queue_size=10)
+        rospy.Subscriber("/mystery/output1", Float32, self.callback)
+        self.pub = rospy.Publisher("/homework4/hw4_msg", hw4, queue_size=10)
         turnout = 0 
         data.data = 0
     def callback(self, data):
