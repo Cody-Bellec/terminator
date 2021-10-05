@@ -48,9 +48,9 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-add_message_files(
-   FILES
-   hw4.msg
+ add_message_files(
+    FILES
+    hw4.msg
  )
 
 ## Generate services in the 'srv' folder
@@ -106,7 +106,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES homework2
-#  CATKIN_DEPENDS mystery_package roscpp rospy std_msgs
+   CATKIN_DEPENDS mystery_package roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
 
