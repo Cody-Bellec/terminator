@@ -3,7 +3,7 @@
 import rospy
 from std_msgs.msg import Float32
 
-class Homework3:
+class Homework4:
     def __init__(self):
         rospy.Subscriber("/mystery/output2", Float32, self.callback)
         self.pub = rospy.Publisher("/homework4/converted_total", Float32, queue_size=10)
@@ -29,8 +29,8 @@ class Homework3:
             rospy.logwarn("No parameter mode found!")
 		
 if __name__ == '__main__':
-	rospy.init_node('homework3', anonymous=True)
-	Homework3()
+	rospy.init_node('homework4', anonymous=True)
+	Homework4()
 
     # spin() simply keeps python from exiting until this node is stopped
 	rospy.spin()
