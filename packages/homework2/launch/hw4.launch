@@ -9,8 +9,7 @@
 			
     			<node pkg="homework2" name="talker" type="homework2.py"/>
     			<node pkg="homework2" name="listener" type="homework2_1.py">
-			<remap from="/homework2/talker" to="/homework4/converted_total"/>
-			
+			<remap from="input" to="/homework4/converted_total"/>
 			</node>
   		</group>
 </launch>
