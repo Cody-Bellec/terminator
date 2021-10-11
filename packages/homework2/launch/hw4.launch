@@ -2,11 +2,11 @@
 
 	<include file="$(find mystery_package)/launch/launch_mystery.launch"/>
   		<group ns="homework2">
+  			<remap from="input" to="/homework4/converted_total"/>
   			<node pkg="homework2" name="homework4" type="homework4.py"/>	
   		</group>
   		<group ns="homework2">
   		
-			<remap from="input" to="/homework4/converted_total"/>
     			<node pkg="homework2" name="talker" type="homework2.py"/>
     			<node pkg="homework2" name="listener" type="homework2_1.py">
 			</node>
