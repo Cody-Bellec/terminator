@@ -5,8 +5,9 @@ from std_msgs.msg import Float32
 
 class Homework4:
     def __init__(self):
-        rospy.Subscriber("/mystery/input", Float32, self.callback)
-        self.pub = rospy.Publisher("/homework4/input", Float32, queue_size=10)
+        rospy.Subscriber("/homework4/input", Float32, self.callback)
+        self.pub = rospy.Publisher("/homework4/converted_total", Float32, queue_size=10)
+        self.pub = rospy.Publisher("/mystery/input", Float32, queue_size=10)
     def callback(self, data):
         		
         if rospy.has_param("value"):

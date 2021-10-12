@@ -2,7 +2,7 @@
 
 	<include file="$(find mystery_package)/launch/launch_mystery.launch"/>
   		<group ns="homework4">  			
-  			<node pkg="homework4" name="hw4" type="hw4.py"/>	
+  			<node pkg="homework4" name="converted_total" type="hw4.py"/>	
   		</group>
   		<group ns="homework2">
       			<remap from="/mystery/input" to="/homework4/input"/>
