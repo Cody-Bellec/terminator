@@ -1,7 +1,0 @@
-<launch>
-
-  <group ns="Homework5">
-    <node pkg="Homework5" name="homework5" type="hw5.py"/>
-  </group>
-  
-</launch>

@@ -1,0 +1,7 @@
+<launch>
+
+  <group ns="hwork5">
+    <node pkg="hwork5" name="hwork5" type="hwork5.py"/>
+  </group>
+  
+</launch>

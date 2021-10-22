@@ -1,4 +1,4 @@
-!/usr/bin/env python3
+#!/usr/bin/env python3
 
 from math import radians, sin, cos
 import numpy
@@ -11,6 +11,7 @@ class Listener:
         self.pub = rospy.Publisher('/wrld_vector_math', Vector2D, queue_size=10)
         self.pub = rospy.Publisher('/bot_vector_math' , Vector2D, queue_size=10)
 
+
         robot = numpy.matrix([[(-sqrt(2)/2),(-sqrt(2)/2),2],[(sqrt(2)/2),(-sqrt(2)/2),7],[0,0,1]])
         sensor = numpy.matrix([[-1,0,-2],[0,-1,0],[0,0,1]])
         x = input("enter x coordinate:")
@@ -19,11 +20,14 @@ class Listener:
         v = [[x],[y],[1]]
         bot_coor_v = sensor * v
         wrld_coor_v = robot * v
+        
         self.pub.publisher(bot_coor_v)
-    print("robot coordinates:")
+        print("robot coordinates:")
         self.pub.publisher(wrld_coor_v)
-    print("wrld coordinates:")
+        print("wrld coordinates:")
 if __name__=='__main__':
     rospy.init_node('listener',anonymous=True)
     Listener()
+
+
     rospy.spin()
