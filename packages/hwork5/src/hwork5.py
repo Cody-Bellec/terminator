@@ -7,9 +7,9 @@ from duckietown_msgs.msg import Vector2D
 
 class Listener:
     def _init_(self):
-        self.sub = rospy.Subscriber('/vector_input', Vector2D,self.callback)
-        self.pub = rospy.Publisher('/wrld_vector_math', Vector2D, queue_size=10)
-        self.pub = rospy.Publisher('/bot_vector_math' , Vector2D, queue_size=10)
+        self.sub = rospy.Subscriber('/input_vector', Vector2D,self.callback)
+        self.pub = rospy.Publisher('/world_vector', Vector2D, queue_size=10)
+        self.pub = rospy.Publisher('/bot_vector' , Vector2D, queue_size=10)
 
 
         robot = numpy.matrix([[(-sqrt(2)/2),(-sqrt(2)/2),2],[(sqrt(2)/2),(-sqrt(2)/2),7],[0,0,1]])
