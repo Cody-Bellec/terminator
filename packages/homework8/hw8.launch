@@ -1,9 +1,9 @@
 <launch> 
-   <group ns="hw7">
-      <node pkg="homework8" name="homework8" type="homework8.py"/>
+   <group ns="homework7">
+      <node pkg="homework7" name="homework7" type="hw7.py"/>
    </group> 
-   <group ns="hw8">
-      <node pkg="homework9" name="homework9" type="homework9.py"/>
+   <group ns="homework8">
+      <node pkg="homework8" name="homework8" type="hw8.py"/>
    </group> 
 
 
