@@ -1,4 +1,4 @@
-launch>
+<launch>
 
 <param name="controller_ready" type="string" value="true" />
 
