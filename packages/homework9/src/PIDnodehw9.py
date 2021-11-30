@@ -25,7 +25,7 @@ class hw9_node:
 
 if __name__ == '__main__':
     rospy.init_node('PIDnodehw9', anonymous=True)
-    hw5_node()
+    hw9_node()
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
