@@ -2,9 +2,9 @@
 
 import rospy
 from std_msgs.msg import Float32
-from PIDclasshw5 import PID
+from PIDclasshw9 import PID
 
-class hw5_node:
+class hw9_node:
     def __init__(self):
         global remote
         remote = PID(30,20)
@@ -24,7 +24,7 @@ class hw5_node:
         self.pub.publish(self.signal)
 
 if __name__ == '__main__':
-    rospy.init_node('PIDnodehw5', anonymous=True)
+    rospy.init_node('PIDnodehw9', anonymous=True)
     hw5_node()
 
     # spin() simply keeps python from exiting until this node is stopped
