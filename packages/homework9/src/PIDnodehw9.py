@@ -8,7 +8,7 @@ class hw9_node:
     def __init__(self):
         global remote
         remote = PID(30,20)
-        remote.changeGainz(0.5,0,1.58)
+        remote.changeGainz(0.15,0.01,0.4)
         
         if rospy.has_param("/controller_ready"):
             rospy.set_param("/controller_ready", 'true')       
