@@ -1,6 +1,6 @@
 <launch>
 	<group ns="$(env VEHICLE_NAME)">
-		<node pkg="lab2" name="Straight Line" type="straight.py"/>
+		<node pkg="lab2" name="Square" type="square.py"/>
 	</group>
 	
 	<include file="$(find fsm)/launch/fsm_node.launch">
