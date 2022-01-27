@@ -21,7 +21,7 @@ if __name__ == '__main__':
         c = Square()
         rospy.init_node('Circle', anonymous=True)
         
-        c.moving(0.4, 0.6)
+        c.moving(5.0, 0.0)
         rospy.sleep(2.5)
         c.moving(0.0, 0.0)
         c.moving(0.0, 5.8)
