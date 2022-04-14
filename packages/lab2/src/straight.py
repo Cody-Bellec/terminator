@@ -23,7 +23,7 @@ class Straight:
 	
 			self.flag = False
 			
-			c.moving(1.4)
+			c.moving(10)
 			rospy.sleep(2.5)
 			c.moving(0.0)      #stop
 			c.moving(0)        #completely stops after all turns are made
