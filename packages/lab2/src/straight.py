@@ -26,7 +26,7 @@ class Straight:
 			c.moving(1.4)
 			rospy.sleep(2.5)
 			c.moving(0.0)      #stop
-			c.moving(0, 0)     #completely stops after all turns are made
+			c.moving(0)        #completely stops after all turns are made
 
 if __name__ == '__main__':
 	try:
