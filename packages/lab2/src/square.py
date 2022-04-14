@@ -22,29 +22,33 @@ if __name__ == '__main__':
         rospy.init_node('Circle', anonymous=True)
         
         c.moving(0.4, 0.6)
-        rospy.sleep(2.5)
+        rospy.sleep(5.0)
         c.moving(0.0, 0.0)
+        rospy.sleep(0.52)
         c.moving(0.0, 5.8)
         rospy.sleep(0.52)
         c.moving(0, 0)
         
         c.moving(0.4, 0.6)
-        rospy.sleep(2.5)
+        rospy.sleep(5.0)
         c.moving(0.0, 0.0)
+        rospy.sleep(0.52)
         c.moving(0.0, 5.8)
         rospy.sleep(0.52)
         c.moving(0, 0)
         
         c.moving(0.4, 0.6)
-        rospy.sleep(2.5)
+        rospy.sleep(5.0)
         c.moving(0.0, 0.0)
+        rospy.sleep(0.52)
         c.moving(0.0, 5.8)
         rospy.sleep(0.52)
         c.moving(0, 0)
         
         c.moving(0.4, 0.6)
-        rospy.sleep(2.5)
+        rospy.sleep(5.0)
         c.moving(0.0, 0.0) #stop
+        rospy.sleep(0.52)
         c.moving(0.0, 5.8) #turning
         rospy.sleep(0.52)  #pause
         c.moving(0, 0)     #completely stops after all turns are made
