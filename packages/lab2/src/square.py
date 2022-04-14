@@ -62,5 +62,8 @@ if __name__ == '__main__':
 		c = Square()
 		rospy.spin()
         
-except rospy.ROSInterruptException:
-	pass
+	except rospy.ROSInterruptException:
+		pass
+	
+	
+	
