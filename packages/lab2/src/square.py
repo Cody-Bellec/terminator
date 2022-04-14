@@ -6,7 +6,7 @@ from duckietown_msgs.msg import Twist2DStamped
 
 class Square:
     def __init__(self):
-        self.pub = rospy.Publisher("/doczy/car_cmd_switch_node/cmd", Twist2DStamped, queue_size=10)
+        self.pub = rospy.Publisher("/doczy/wheels_driver_node/wheels_cmd", Twist2DStamped, queue_size=10)
 
     def moving(self, speed, turn_ratio):
         
@@ -21,7 +21,7 @@ if __name__ == '__main__':
         c = Square()
         rospy.init_node('Circle', anonymous=True)
         
-        c.moving(5.0, 0.0)
+        c.moving(0.4, 0.6)
         rospy.sleep(2.5)
         c.moving(0.0, 0.0)
         c.moving(0.0, 5.8)
