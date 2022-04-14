@@ -7,7 +7,7 @@ from duckietown_msgs.msg import FSMState
 
 class Square:
 	def __init__(self):
-		self.pub = rospy.Publisher("/doczy/wheels_driver_node/wheels_cmd", Twist2DStamped, queue_size=10)
+		self.pub = rospy.Publisher("/doczy/car_cmd_switch_node/cmd", Twist2DStamped, queue_size=10)
 		self.sub = rospy.Subscriber("/doczy/fsm_node/mode", FSMState, self.callback)
 		self.flag = True
 
