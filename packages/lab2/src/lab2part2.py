@@ -1,5 +1,3 @@
-135 ticks/revolution
-
 #!/usr/bin/env python3
 
 import rospy
