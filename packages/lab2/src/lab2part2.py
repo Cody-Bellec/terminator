@@ -12,10 +12,10 @@ class Odometry:
 		self.pub = rospy.Publisher('/pose', Pose2D, queue_size=10)
 
 	global Pose
-		Pose = Pose2D()
-		Pose.x = 0
-		Pose.y = 0
-		Pose.theta = 0
+	Pose = Pose2D()
+	Pose.x = 0
+	Pose.y = 0
+	Pose.theta = 0
 		
 	def callback(self,wheel):
 		Delta_sL = wheel.dist_wheel_left
