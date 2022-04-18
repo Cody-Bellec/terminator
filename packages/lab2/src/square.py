@@ -27,7 +27,7 @@ class Square:
 			rospy.sleep(2.5)
 			c.moving(0.0, 0.0)
 			rospy.sleep(0.52)
-			c.moving(0.0, 5.8)
+			c.moving(0.0, 2.9)
 			rospy.sleep(0.52)
 			c.moving(0, 0)
 
@@ -35,7 +35,7 @@ class Square:
 			rospy.sleep(2.5)
 			c.moving(0.0, 0.0)
 			rospy.sleep(0.52)
-			c.moving(0.0, 5.8)
+			c.moving(0.0, 2.9)
 			rospy.sleep(0.52)
 			c.moving(0, 0)
 
@@ -43,7 +43,7 @@ class Square:
 			rospy.sleep(2.5)
 			c.moving(0.0, 0.0)
 			rospy.sleep(0.52)
-			c.moving(0.0, 5.8)
+			c.moving(0.0, 2.9)
 			rospy.sleep(0.52)
 			c.moving(0, 0)
 
@@ -51,7 +51,7 @@ class Square:
 			rospy.sleep(2.5)
 			c.moving(0.0, 0.0) #stop
 			rospy.sleep(0.52)
-			c.moving(0.0, 5.8) #turning
+			c.moving(0.0, 2.9) #turning
 			rospy.sleep(0.52)  #pause
 			c.moving(0, 0)     #completely stops after all turns are made
 	
