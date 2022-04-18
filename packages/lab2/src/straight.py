@@ -11,10 +11,11 @@ class Straight:
 		self.sub = rospy.Subscriber("/doczy/fsm_node/mode", FSMState, self.callback)
 		self.flag = True
 
-	def moving(self, speed):
+	def moving(self, speed, turn_ratio):
 
 		self.turnout = Twist2DStamped()
 		self.turnout.v = speed
+		self.turnout.omega = turn_ratio
 		  
 		self.pub.publish(self.turnout)
 		    
@@ -23,10 +24,10 @@ class Straight:
 	
 			self.flag = False
 			
-			c.moving(10)
+			c.moving(10, 0)
 			rospy.sleep(2.5)
-			c.moving(0.0)      #stop
-			c.moving(0)        #completely stops after all turns are made
+			c.moving(0.0, 0)      #stop
+			c.moving(0, 0)        #completely stops after all turns are made
 
 if __name__ == '__main__':
 	try:
