@@ -16,6 +16,7 @@ class Odometry:
 		Pose.x = 0
 		Pose.y = 0
 		Pose.theta = 0
+		
 	def callback(self,wheel):
 		Delta_sL = wheel.dist_wheel_left
 		Delta_sR = wheel.dist_wheel_right
@@ -33,6 +34,7 @@ class Odometry:
 		self.pub.publish(Pose)
         
 if __name__ == '__main__':
+	try:
 		rospy.init_node('Odometry', anonymous = True)
 		o = Odometry()
 		rospy.spin()
