@@ -35,6 +35,8 @@ class Odometry:
 		self.pub.publish(Pose)
         
 if __name__ == '__main__':
-		rospy.init_node('lab2part2.py', anonymous = True)
-		Odometry()
+		rospy.init_node('Odometry', anonymous = True)
+		o = Odometry()
 		rospy.spin()
+	except rospy.ROSInterruptException:
+		pass

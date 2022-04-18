@@ -1,0 +1,6 @@
+<launch>
+	<group ns="$(env VEHICLE_NAME)">
+		<node pkg="lab2" name="Odometry" type="lab2part2.py"/>
+	</group>
+
+</launch>
