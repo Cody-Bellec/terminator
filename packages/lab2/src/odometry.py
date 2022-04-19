@@ -7,19 +7,20 @@ from odometry_hw.msg import Pose2D, DistWheel
 from duckietown_msgs.msg import WheelEncoderStamped
 from numpy import *
 
-class Odometry:
+class Odometry(object):
 	def __init__(self):
+		self.node_name = rospy.get_name()
+		self.vehicle_name = self.node_name.split("/")[1]
+		
+		self.last_position = Pose2D()
+		self.last_theta_dot = 0
+		self.last_velocity = 0
+		
 		rospy.Subscriber("/dist_wheel", DistWheel, self.callback)
 		rospy.Subscriber("/doczy/left_wheel_encoder_node/tick", WheelEncoderStamped, self.velocity_callback)
 		rospy.Subscriber("/doczy/right_wheel_encoder_node/tick", WheelEncoderStamped, self.velocity_callback)
 		self.pub_pose = rospy.Publisher('/pose', Pose2D, queue_size=1)
 
-	self.node_name = rospy.get_name()
-	self.vehicle_name = self.node_name.split("/")[1]
-	
-	self.last_position = Pose2D()
-	self.last_theta_dot = 0
-	self.last_velocity = 0
 		
 	def velocity_callback(self, msg_velocity):
 		if self.last_pose.header.stamp.to_sec() > 0:
