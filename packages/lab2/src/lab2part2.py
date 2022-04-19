@@ -38,7 +38,7 @@ class Odometry:
 if __name__ == '__main__':
 	try:
 		rospy.init_node('Odometry', anonymous = True)
-		lab2part2()
+		Odometry()
 		rospy.spin()
 	except rospy.ROSInterruptException:
 		pass
