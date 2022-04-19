@@ -16,10 +16,11 @@ class Odometry(object):
 		self.last_theta_dot = 0
 		self.last_velocity = 0
 		
-		rospy.Subscriber("/dist_wheel", DistWheel, self.callback)
+		rospy.Subscriber("/dist_wheel", DistWheel, self.velocity_callback)
 		rospy.Subscriber("/doczy/left_wheel_encoder_node/tick", WheelEncoderStamped, self.velocity_callback)
 		rospy.Subscriber("/doczy/right_wheel_encoder_node/tick", WheelEncoderStamped, self.velocity_callback)
 		self.pub_pose = rospy.Publisher('/pose', Pose2D, queue_size=1)
+		rospy.loginfo("[%s] Initialized.", self.node_name)
 
 		
 	def velocity_callback(self, msg_velocity):
@@ -62,6 +63,6 @@ class Odometry(object):
         	return [theta_res, x_res, y_res]
         	
 if __name__ == '__main__':
-		rospy.init_node('Odometry', anonymous = True)
+		rospy.init_node('odometry_node', anonymous = True)
 		position_filter_node = Odometry()
 		rospy.spin()
