@@ -63,5 +63,3 @@ if __name__ == '__main__':
 		rospy.init_node('Odometry', anonymous = True)
 		position_filter_node = Odometry()
 		rospy.spin()
-	except rospy.ROSInterruptException:
-		pass
