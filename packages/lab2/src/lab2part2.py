@@ -3,12 +3,13 @@
 import rospy
 import math
 from std_msgs.msg import Float32
-from odometry_hw.msg import DistWheel, Pose2D
+from odometry_hw.msg import Pose2D
+from duckietown_msgs import WheelEncoderStamped
 
 class Odometry:
 	def __init__(self):
-		rospy.Subscriber("/doczy/left_wheel_encoder_node/tick", DistWheel, self.callback)
-		rospy.Subscriber("/doczy/right_wheel_encoder_node/tick", DistWheel, self.callback)
+		rospy.Subscriber("/doczy/left_wheel_encoder_node/tick", WheelEncoderStamped, self.callback)
+		rospy.Subscriber("/doczy/right_wheel_encoder_node/tick", WheelEncoderStamped, self.callback)
 		self.pub = rospy.Publisher('/pose', Pose2D, queue_size=10)
 
 	global Pose
