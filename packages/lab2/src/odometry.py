@@ -12,7 +12,7 @@ class Odometry(object):
 		self.node_name = rospy.get_name()
 		self.vehicle_name = self.node_name.split("/")[1]
 		
-		self.last_position = Pose2D()
+		self.last_pose = Pose2D()
 		self.last_theta_dot = 0
 		self.last_velocity = 0
 		
