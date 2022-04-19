@@ -3,7 +3,7 @@
 import rospy
 import math
 from std_msgs.msg import Float32
-from odometry_hw.msg import Pose2DStamped, DistWheel
+from odometry_hw.msg import Pose2D, DistWheel
 from duckietown_msgs.msg import WheelEncoderStamped
 from numpy import *
 
@@ -12,14 +12,14 @@ class Odometry(object):
 		self.node_name = rospy.get_name()
 		self.vehicle_name = self.node_name.split("/")[1]
 		
-		self.last_pose = Pose2DStamped()
+		self.last_pose = Pose2D()
 		self.last_theta_dot = 0
 		self.last_velocity = 0
 		
 		rospy.Subscriber("/dist_wheel", DistWheel, self.velocity_callback)
 		rospy.Subscriber("/doczy/left_wheel_encoder_node/tick", WheelEncoderStamped, self.velocity_callback)
 		rospy.Subscriber("/doczy/right_wheel_encoder_node/tick", WheelEncoderStamped, self.velocity_callback)
-		self.pub_pose = rospy.Publisher('/pose', Pose2DStamped, queue_size=1)
+		self.pub_pose = rospy.Publisher('/pose', Pose2D, queue_size=1)
 		rospy.loginfo("[%s] Initialized.", self.node_name)
 
 		
@@ -33,7 +33,7 @@ class Odometry(object):
 			self.last_pose.x = x_res
 			self.last_pose.y = y_res
 			
-			msg_pose = Pose2DStamped()
+			msg_pose = Pose2D()
 			msg_pose.header = msg_velocity.header
 			msg_pose.header.frame_id = self.vehicle_name
 			msg_pose.theta = theta_res
