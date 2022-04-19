@@ -24,7 +24,7 @@ class Odometry:
 		if self.last_pose.header.stamp.to_sec() > 0:
 			delta_t = (msg_velocity.header.stamp - self.last_pose.header.stamp).to_sec()
 			[Delta_theta, Delta_x, Delta_y] = self.integrate(self.last_theta_dot, self.last_velocity, delta_t)
-			[theta_res, x_res, y_res = self.propogate(self.last_pose.theta, self.last_pose.x, self.last_pose.y, Delta_theta, Delta_x, Delta_y)
+			[theta_res, x_res, y_res] = self.propogate(self.last_pose.theta, self.last_pose.x, self.last_pose.y, Delta_theta, Delta_x, Delta_y)
 			
 			self.last_pose.theta = theta_res
 			self.last_pose.x = x_res
