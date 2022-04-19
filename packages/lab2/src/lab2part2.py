@@ -17,6 +17,22 @@ class Odometry:
 	Pose.x = 0
 	Pose.y = 0
 	Pose.theta = 0
+	
+class Velocity:
+	def __init__(self):
+		self.LP = 0
+		self.LT = 0
+	
+	def Velocity_Estimate(self,NP):
+		if self.LP == None or self.LT == None:
+			self.LP = NP
+			self.LT = rospy.get_time()
+			
+			d = dist(NP, LP)
+			t = rospy.get_time()
+			dt = t - self.LT
+			self.LP = NP
+			return d/dt
 		
 	def callback(self,wheel):
 		Delta_sL = wheel.dist_wheel_left
