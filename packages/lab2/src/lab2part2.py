@@ -3,7 +3,7 @@
 import rospy
 import math
 from std_msgs.msg import Float32
-from odometry_hw.msg import Pose2D
+from odometry_hw.msg import Pose2D, DistWheel
 from duckietown_msgs.msg import WheelEncoderStamped
 
 class Odometry:
