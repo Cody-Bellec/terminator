@@ -35,7 +35,7 @@ class Odometry:
         
 if __name__ == '__main__':
 	try:
-		rospy.init_node('Odometry', anonymous = True)
+		rospy.init_node('Pose', anonymous = True)
 		o = Odometry()
 		rospy.spin()
 	except rospy.ROSInterruptException:
