@@ -4,7 +4,7 @@ import rospy
 import math
 from std_msgs.msg import Float32
 from odometry_hw.msg import Pose2D
-from duckietown_msgs import WheelEncoderStamped
+from duckietown_msgs.msg import WheelEncoderStamped
 
 class Odometry:
 	def __init__(self):
