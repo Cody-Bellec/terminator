@@ -53,7 +53,7 @@ class Odometry:
 			Delta_y = radius * (1.0 - cos(Delta_theta))
 		return [Delta_theta, Delta_x, Delta_y]
         
-        def propagate(theta, x, y, Delta_theta, Delta_x, Delta_y):
+	def propagate(theta, x, y, Delta_theta, Delta_x, Delta_y):
         	theta_res = theta + Delta_theta
         	x_res = x + Delta_x * cos(theta) - Delta_y * sin(theta)
         	y_res = y + Delta_y * cos(theta) + Delta_x * sin(theta)
