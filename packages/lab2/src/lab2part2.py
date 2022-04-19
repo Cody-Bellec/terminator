@@ -17,22 +17,6 @@ class Odometry:
 	Pose.x = 0
 	Pose.y = 0
 	Pose.theta = 0
-	
-class Velocity:
-	def __init__(self):
-		self.LP = 0
-		self.LT = 0
-	
-	def Velocity_Estimate(self,NP):
-		if self.LP == None or self.LT == None:
-			self.LP = NP
-			self.LT = rospy.get_time()
-			
-			d = dist(NP, LP)
-			t = rospy.get_time()
-			dt = t - self.LT
-			self.LP = NP
-			return d/dt
 		
 	def callback(self,wheel):
 		Delta_sL = wheel.dist_wheel_left
@@ -44,16 +28,17 @@ class Velocity:
 		Delta_theta = (Delta_sR - Delta_sL)/(2*L)
 		Delta_x = Delta_s * math.cos(Pose.theta + (Delta_theta/2))
 		Delta_y = Delta_s * math.sin(Pose.theta + (Delta_theta/2))
+		Pose.theta = Pose.theta + Delta_theta
 		Pose.x = Pose.x + Delta_x
 		Pose.y = Pose.y + Delta_y
-		Pose.theta = Pose.theta + Delta_theta
+		
 
 		self.pub.publish(Pose)
         
 if __name__ == '__main__':
 	try:
-		rospy.init_node('Pose', anonymous = True)
-		o = Odometry()
+		rospy.init_node('Odometry', anonymous = True)
+		lab2part2()
 		rospy.spin()
 	except rospy.ROSInterruptException:
 		pass
