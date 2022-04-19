@@ -5,6 +5,7 @@ import math
 from std_msgs.msg import Float32
 from odometry_hw.msg import Pose2D, DistWheel
 from duckietown_msgs.msg import WheelEncoderStamped
+from numpy import *
 
 class Odometry:
 	def __init__(self):
