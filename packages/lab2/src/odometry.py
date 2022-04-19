@@ -20,7 +20,7 @@ class Odometry:
 	self.last_theta_dot = 0
 	self.last_velocity = 0
 		
-	def velocity_callback(self, msg_velocity)
+	def velocity_callback(self, msg_velocity):
 		if self.last_pose.header.stamp.to_sec() > 0:
 			delta_t = (msg_velocity.header.stamp - self.last_pose.header.stamp).to_sec()
 			[Delta_theta, Delta_x, Delta_y] = self.integrate(self.last_theta_dot, self.last_velocity, delta_t)
