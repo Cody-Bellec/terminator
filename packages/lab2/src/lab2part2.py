@@ -47,7 +47,7 @@ class Odometry:
 			self.new_flag_right = False
 			self.new_flag_left = False
 			
-			self.rospy.logwarn(Pose)
+			rospy.logwarn(Pose)
 		
 	def callback_right(self, tick):
 	
