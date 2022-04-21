@@ -24,7 +24,7 @@ class Circle:
 	
 			self.flag = False
 
-			c.moving(0.4, 1.4)
+			c.moving(0.4, 1.0)
 			rospy.sleep(10)
 			c.moving(0, 0)
 if __name__ == '__main__':

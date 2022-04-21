@@ -23,7 +23,7 @@ class Square:
 	
 			self.flag = False
 
-			c.moving(0.4, 0.6)
+			c.moving(0.4, 0)
 			rospy.sleep(2.5)
 			c.moving(0.0, 0.0)
 			rospy.sleep(0.52)
@@ -31,7 +31,7 @@ class Square:
 			rospy.sleep(0.52)
 			c.moving(0, 0)
 
-			c.moving(0.4, 0.6)
+			c.moving(0.4, 0)
 			rospy.sleep(2.5)
 			c.moving(0.0, 0.0)
 			rospy.sleep(0.52)
@@ -39,7 +39,7 @@ class Square:
 			rospy.sleep(0.52)
 			c.moving(0, 0)
 
-			c.moving(0.4, 0.6)
+			c.moving(0.4, 0)
 			rospy.sleep(2.5)
 			c.moving(0.0, 0.0)
 			rospy.sleep(0.52)
@@ -47,7 +47,7 @@ class Square:
 			rospy.sleep(0.52)
 			c.moving(0, 0)
 
-			c.moving(0.4, 0.6)
+			c.moving(0.4, 0)
 			rospy.sleep(2.5)
 			c.moving(0.0, 0.0) #stop
 			rospy.sleep(0.52)
