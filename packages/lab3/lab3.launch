@@ -1,83 +1,40 @@
-#!/usr/bin/env python3
+<launch>
 
-import sys
-import rospy
-import cv2
-from sensor_msgs.msg import Image
-from cv_bridge import CvBridge
-import numpy as np
+   <arg name="veh" default="$(env VEHICLE_NAME)"/>
+   <arg name="ai_trafo_mode" default="cb" doc="'cb' for colo balance only; 'both' for color balance and linear trafo"/>
+   <arg name="ai_interval" default="5" doc="interval with which the linear trafo gets updated. color balance is performed every second."/>
+   <arg name="verbose" default="false"/>
 
-class ImageProcess:
-	def __init__(self):
-		# Instatiate the converter class once by using a class member
-		self.bridge = CvBridge()
-		rospy.Subscriber("/doczy/camera_node/image/compressed", CompressedImage, self.processing, queue_size=1, buff_size=2**24)
-		self.pub = rospy.Publisher("/image_cropped", Image, queue_size=10)
-        
-        
-	def output_lines(self, original_image, lines):
-		output = np.copy(original_image)
-		if lines is not None:
-			for i in range(len(lines)):
-				l = lines[i][0]
-				cv2.line(output, (l[0],l[1]), (l[2],l[3]), (255,0,0), 2, cv2.LINE_AA)
-				cv2.circle(output, (l[0],l[1]), 2, (0,255,0))
-				cv2.circle(output, (l[2],l[3]), 2, (0,0,255))
-				return output
-        
-        
-	def processing(self, msg):
-    
-		#cut off top half
-		cv_img1 = self.bridge.compressed_imgmsg_to_cv2(msg, "bgr8")
-
-
-		image_size = (160, 120)
-		offset = 40
-		new_image = cv2.resize(cv_img1, image_size, interpolation=cv2.INTER_NEAREST)
-		cropped = new_image[offset:, :]
-
-
-
-		#line processing
-
-		orig = croppped
-		Gauss = cv2.GaussianBlur(cropped,(5,5), 0)
-		Gauss = cv2.Sobel(Gauss,cv2.CV_8U,1,0)
-		cvimg1 = cv2.Sobel(Gauss,cv2.CV_8U,0,1)
-		img1 = cv2.Canny(cvimg1, 1, 10)
-			
-		       
-		#white filtering
-		cv2cropped = cv2.cvtColor(cropped, cv2.COLOR_BGR2HSV)
-		white_filtered = cv2.inRange(cv2cropped, (40,0,240),(180,255,255))
-
-		cvim = cv2.bitwise_and(white_filtered, img1)
-		lines1 = cv2.HoughLinesP(cvim,rho = 1,theta = 1*np.pi/180,threshold = 1,minLineLength = 1,maxLineGap = 1)
-		out1 = self.output_lines(orig, lines1)
-		#output = self.bridge.cv2_to_imgmsg(out, "bgr8")
-		#self.pubwhite.publish(output)
-
-
-
-		#yellow filtering
-		yellow_filtered = cv2.inRange(cv2cropped, (20, 100, 100),(180,255,255))
-
-
-		cvim1 = cv2.bitwise_and(yellow_filtered, img1)
-		lines11 = cv2.HoughLinesP(cvim1,rho = 1,theta = 1*np.pi/180,threshold = 1,minLineLength = 1,maxLineGap = 1)
-		out2 = self.output_lines(orig, lines11)
-
-
-
-		output = cv2.bitwise_or(out1, out2)
-		outputfinal = self.bridge.cv2_to_imgmsg(output, "bgr8")
-		self.pub.publish(outputfinal)
-		#
-
-if __name__=="__main__":
-	# initialize our node and create a publisher as normal
-	rospy.init_node("lab3", anonymous=True)
-	img_flip = ImageProcess()
-	rospy.spin()
+   <!--start Duckietown nodes -->
+   <arg name="demo_name" value="lane_following"/>
+   <!--start basic args -->
+   <include file="$(find duckietown_demos)/launch/master.launch">
+      <!--Basic arguments -->
+         <arg name="veh" value="$(arg veh)"/>
+         <arg name="demo_name" value="$(arg demo_name)"/>
+         <arg name="param_file_name" value="default" />
+         <arg name="visualization" value="true" />
+         
+      <!--Finite state machine -->
+      <arg name="fsm" value="true"/>
+      <arg name="/fsm/logic_gate" value="false"/>   
+      
+         <!--Camera and anti intagram -->
+         <arg name="/camera/raw" value="false" />
+         <arg name="anti_instagram" value="true" />
+         
+      <!--Lane Following stack -->
+      <arg name="lane_following" value="true"/>
+      <arg name="/lane_following/line_detection" value="false"/>
+      <arg name="line_detector_param_file_name" value="default" />
+      <arg name="/lane_following/ground_projection" value="true"/>
+      <arg name="/lane_following/lane_filter" value="true"/>
+      <arg name="/lane_following/lane_controller" value="false"/>
+      
+   </include>
+   <group ns="$(env VEHICLE_NAME)">
+      <node pkg="lab5" name="lab5" type="lab5.py"/>
+   </group>
+   
+</launch>
 
