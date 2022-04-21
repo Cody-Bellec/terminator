@@ -3,6 +3,7 @@
 import sys
 import rospy
 import cv2
+from duckietown_msgs.msg import SegmentList
 from sensor_msgs.msg import CompressedImage, Image
 from cv_bridge import CvBridge
 import numpy as np
@@ -17,7 +18,7 @@ class ImageProcess:
 		self.bridge = CvBridge()
 		rospy.Subscriber("/doczy/camera_node/image/compressed", CompressedImage, self.callback, queue_size=1, buff_size=2**24)
 		self.pub = rospy.Publisher("/image_cropped", Image, queue_size=10)
-		self.hough = rospy.Publisher("/doczy/line_detector_node/segment_list", 
+		self.hough = rospy.Publisher("/doczy/line_detector_node/segment_list", SegmentList, queue_size=10)
 		#self.pubw = rospy.Publisher("/image_white", Image, queue_size=10)
 		#self.puby = rospy.Publisher("/image_yellow", Image, queue_size=10)
 		#self.pubw = rospy.Publisher("/image_lines_white", Image, queue_size=10)
