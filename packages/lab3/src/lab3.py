@@ -3,7 +3,7 @@
 import sys
 import rospy
 import cv2
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import CompressedImage, Image
 from cv_bridge import CvBridge
 import numpy as np
 
@@ -15,15 +15,16 @@ class ImageProcess:
 	def __init__(self):
 		# Instatiate the converter class once by using a class member
 		self.bridge = CvBridge()
-		rospy.Subscriber("/doczy/camera_node/image/compressed", CompressedImage, self.output_lines, queue_size=1, buff_size=2**24)
-		self.pubw = rospy.Publisher("/image_lines_white", Image, queue_size=10)
-		self.puby = rospy.Publisher("/image_lines_yellow", Image, queue_size=10)
-		#self.pubcrop = rospy.Publisher("/image_cropped", Image, queue_size=10)
+		rospy.Subscriber("/doczy/camera_node/image/compressed", CompressedImage, self.callback, queue_size=1, buff_size=2**24)
+		self.pub = rospy.Publisher("/image_cropped", Image, queue_size=10)
+		self.hough = rospy.Publisher("/doczy/line_detector_node/segment_list", 
 		#self.pubw = rospy.Publisher("/image_white", Image, queue_size=10)
 		#self.puby = rospy.Publisher("/image_yellow", Image, queue_size=10)
+		#self.pubw = rospy.Publisher("/image_lines_white", Image, queue_size=10)
+		#self.puby = rospy.Publisher("/image_lines_yellow", Image, queue_size=10)
         
         
-	def output_lines(self, original_image, lines, msg):
+	def output_lines(self, original_image, lines):
 		output = np.copy(original_image)
 		if lines is not None:
 			for i in range(len(lines)):
@@ -33,49 +34,50 @@ class ImageProcess:
 				cv2.circle(output, (l[2],l[3]), 2, (0,0,255))
 		return output
 		
-		#make lines and cut off top half
-		global orig
-		global img1
-		cv_img1 = self.bridge.imgmsg_to_cv2(msg, "bgr8")
-		height = cv_image1.shape[0]
-		width = cv_image1.shape[1]
-		cropped = cv_image1[int(height/2):height, 0:width]
-		roscropped = self.bridge.cv2_to_imgmsg(cropped, "bgr8")
-		self.pubcrop.publish(roscropped)
+	def callback(self, msg):
+		#cut off top half
+		cv_img1 = self.bridge.compressed_imgmsg_to_cv2(msg, "bgr8")
 		
-		orig = cv_img1
-		Gauss = cv2.GaussianBlur(cv_img1,(5,5), 0)
+		image_size = (160, 120)
+		offset = 40
+		new_image = cv2.resize(cv_img1, image_size, interpolation=cv2.INTER_NEAREST)
+		cropped = new_image[offset:, :]
+        
+		#line processing
+		orig = cropped
+		Gauss = cv2.GaussianBlur(cropped,(5,5), 0)
 		Gauss = cv2.Sobel(Gauss,cv2.CV_8U,1,0)
 		cvimg1 = cv2.Sobel(Gauss,cv2.CV_8U,0,1)
-		
 		img1 = cv2.Canny(cvimg1, 1, 10)
 		
-		#White
+		arr_cutoff = np.array([0, offset, 0, offset])
+		arr_ratio = np.array([1. / image_size[0], 1. / image_size[1], 1. / image_size[0], 1. / img_size[1]])
+		
+		line_normalized = (line + arr_cutoff) * arr_ratio
+		
 		#White Filtering
 		cv2cropped = cv2.cvtColor(cropped, cv2.COLOR_BGR2HSV)
 		w_filter = cv2.inRange(cv2cropped, (40,0,240), (180,255,255))
-		wf = self.bridge.cv2_to_imgmsg(w_filter, "mono8")
-		self.pubw.publish(wf)
 		
-		#White Lines
-		cvim = cv2.bitwise_and(cv_img1, img1)
+		cvim = cv2.bitwise_and(w_filter, img1)
 		lines1 = cv2.HoughLinesP(cvim,rho = 1,theta = 1*np.pi/180, threshold = 1,minLineLength = 1,maxLineGap = 1)
-		out = self.output_lines(orig, lines1)
-		outputw = self.bridge.cv2_to_imgmsg(out, "bgr8")
-		self.pubw.publish(outputw)
+		line_normalized1 = (lines1 + arr_cutoff) * arr_ratio
+		out1 = self.output_lines(orig, line_normalized1)
+		#output = self.bridge.cv2_to_imgmsg(out, "bgr8")
+		#self.pubw.publish(output)
 		
-		#Yellow
 		#Yellow Filtering
 		y_filter = cv2.inRange(cv2cropped, (20,100,100), (180,255,255))
-		yf = self.bridge.cv2_to_imgmsg(y_filter, "mono8")
-		self.puby.publish(yf)
 		
-		#Yellow Lines
-		cvim = cv2.bitwise_and(cv_img2, img1)
-		lines2 = cv2.HoughLinesP(cvim,rho = 1,theta = 1*np.pi/180,threshold = 1,minLineLength = 1,maxLineGap = 1)
-		out = self.output_lines(orig, lines2)
-		outputy = self.bridge.cv2_to_imgmsg(out, "bgr8")
-		self.puby.publish(outputy)
+		cvim1 = cv2.bitwise_and(y_filter, img1)
+		lines2 = cv2.HoughLinesP(cvim1,rho = 1,theta = 1*np.pi/180,threshold = 1,minLineLength = 1,maxLineGap = 1)
+		line_normalized2 = (lines2 + arr_cutoff) * arr_ratio
+		out2 = self.output_lines(orig, line_normalized2)
+		
+		
+		output = cv2.bitwise_or(out1, out2)
+		outputfinal = self.bridge.cv2_to_imgmsg(output, "bgr8")
+		self.pub.publish(outputfinal)
 
 if __name__=="__main__":
 	# initialize our node and create a publisher as normal
