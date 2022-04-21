@@ -2,7 +2,7 @@
 
    <arg name="veh" default="$(env VEHICLE_NAME)"/>
    <arg name="ai_trafo_mode" default="cb" doc="'cb' for colo balance only; 'both' for color balance and linear trafo"/>
-   <arg name="ai_interval" default="5" doc="interval with which the linear trafo gets updated. color balance is performed every second."/>
+   <arg name="ai_interval" default="3" doc="interval with which the linear trafo gets updated. color balance is performed every second."/>
    <arg name="verbose" default="false"/>
 
    <!--start Duckietown nodes -->
@@ -33,7 +33,7 @@
       
    </include>
    <group ns="$(env VEHICLE_NAME)">
-      <node pkg="lab5" name="lab5" type="lab5.py"/>
+      <node pkg="lab3" name="lab3" type="lab3.py"/>
    </group>
    
 </launch>
