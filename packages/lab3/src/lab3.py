@@ -3,6 +3,7 @@
 import sys
 import rospy
 import cv2
+from std_msgs.msg import Header
 from duckietown_msgs.msg import SegmentList
 from sensor_msgs.msg import CompressedImage, Image
 from cv_bridge import CvBridge
@@ -52,9 +53,8 @@ class ImageProcess:
 		img1 = cv2.Canny(cvimg1, 1, 10)
 		
 		arr_cutoff = np.array([0, offset, 0, offset])
-		arr_ratio = np.array([1. / image_size[0], 1. / image_size[1], 1. / image_size[0], 1. / img_size[1]])
+		arr_ratio = np.array([1. / image_size[0], 1. / image_size[1], 1. / image_size[0], 1. / image_size[1]])
 		
-		line_normalized = (line + arr_cutoff) * arr_ratio
 		
 		#White Filtering
 		cv2cropped = cv2.cvtColor(cropped, cv2.COLOR_BGR2HSV)
@@ -62,8 +62,9 @@ class ImageProcess:
 		
 		cvim = cv2.bitwise_and(w_filter, img1)
 		lines1 = cv2.HoughLinesP(cvim,rho = 1,theta = 1*np.pi/180, threshold = 1,minLineLength = 1,maxLineGap = 1)
+		out1 = self.output_lines(orig, lines1)
 		line_normalized1 = (lines1 + arr_cutoff) * arr_ratio
-		out1 = self.output_lines(orig, line_normalized1)
+		self.hough.publish(line_normalized1)
 		#output = self.bridge.cv2_to_imgmsg(out, "bgr8")
 		#self.pubw.publish(output)
 		
@@ -72,9 +73,13 @@ class ImageProcess:
 		
 		cvim1 = cv2.bitwise_and(y_filter, img1)
 		lines2 = cv2.HoughLinesP(cvim1,rho = 1,theta = 1*np.pi/180,threshold = 1,minLineLength = 1,maxLineGap = 1)
+		out2 = self.output_lines(orig, lines2)
 		line_normalized2 = (lines2 + arr_cutoff) * arr_ratio
-		out2 = self.output_lines(orig, line_normalized2)
 		
+		
+		h = Header(stamp=rospy.Time.now(), frame_id = "base")
+		self.hough.publish(h, line_normalized1)
+		self.hough.publish(h, line_normalized2)
 		
 		output = cv2.bitwise_or(out1, out2)
 		outputfinal = self.bridge.cv2_to_imgmsg(output, "bgr8")
