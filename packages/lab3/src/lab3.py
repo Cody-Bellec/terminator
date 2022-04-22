@@ -66,6 +66,15 @@ class ImageProcess:
 		line_normalized1 = (lines1 + arr_cutoff) * arr_ratio
 		#self.hough.publish(line_normalized1)
 		
+		for points in line_normalized1:
+			s = Segment()
+			s.color = 0
+			s.pixel_normalized[0].x1 = points[0]
+			s.pixel_normalized[0].y1 = points[1]
+			s.pixel_normalized[1].x2 = points[2]
+			s.pixel_normalized[1].y2 = points[3]
+			
+		
 		
 		#Yellow Filtering
 		y_filter = cv2.inRange(cv2cropped, (20,100,100), (180,255,255))
