@@ -64,9 +64,8 @@ class ImageProcess:
 		lines1 = cv2.HoughLinesP(cvim,rho = 1,theta = 1*np.pi/180, threshold = 1,minLineLength = 1,maxLineGap = 1)
 		out1 = self.output_lines(orig, lines1)
 		line_normalized1 = (lines1 + arr_cutoff) * arr_ratio
-		self.hough.publish(line_normalized1)
-		#output = self.bridge.cv2_to_imgmsg(out, "bgr8")
-		#self.pubw.publish(output)
+		#self.hough.publish(line_normalized1)
+		
 		
 		#Yellow Filtering
 		y_filter = cv2.inRange(cv2cropped, (20,100,100), (180,255,255))
@@ -77,13 +76,17 @@ class ImageProcess:
 		line_normalized2 = (lines2 + arr_cutoff) * arr_ratio
 		
 		
-		h = Header(stamp=rospy.Time.now(), frame_id = "base")
-		self.hough.publish(h, line_normalized1)
-		self.hough.publish(h, line_normalized2)
+		#h = Header(stamp=rospy.Time.now(), frame_id = "base")
+		#out3 = self.output_lines(orig, line_normalized1)
+		#out4 = self.output_lines(orig, line_normalized2)
 		
 		output = cv2.bitwise_or(out1, out2)
 		outputfinal = self.bridge.cv2_to_imgmsg(output, "bgr8")
 		self.pub.publish(outputfinal)
+		
+		#output1 = cv2.bitwise_or(out3, out4)
+		#outputfinal2 = self.bridge.cv2_to_imgmsg(output1, "bgr8")
+		#self.hough.publish(outputfinal2)
 
 if __name__=="__main__":
 	# initialize our node and create a publisher as normal
