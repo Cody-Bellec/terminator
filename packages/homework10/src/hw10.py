@@ -28,10 +28,12 @@ def AC(n):
 	ACtime2 = rospy.get_time()
 	client.wait_for_result()
 	ACtime3 = rospy.get_time()
+	
 	time_sending = ACtime2 - ACtime1
-	rospy.logwarn("Action for " +str(n)+ "Send Time is " +str(time_sending))
+	rospy.logwarn("Action for " +str(n)+ "the send time is " +str(time_sending))
 	waiting_time = ACtime3 - ACtime2
-	rospy.logwarn("Action" +str(n)+ "Wait Time is " +str(waiting_time))
+	rospy.logwarn("Action" +str(n)+ "the wait time is " +str(waiting_time))
+	
 	return client.get_result()
 
     
