@@ -7,7 +7,6 @@ from std_msgs.msg import Header
 from duckietown_msgs.msg import SegmentList, Segment
 from sensor_msgs.msg import CompressedImage, Image
 from cv_bridge import CvBridge
-from  
 import numpy as np
 
 class ImageProcess:
@@ -68,6 +67,8 @@ class ImageProcess:
 		
 		b = SegmentList()
 		
+		
+		
 		for points1 in lines1:
 			s = Segment()
 			s.color = 0
@@ -81,10 +82,12 @@ class ImageProcess:
 		
 		#Yellow Filtering
 		y_filter = cv2.inRange(cv2cropped, (20,100,100), (180,255,255))
-		
+
 		cvim1 = cv2.bitwise_and(y_filter, img1)
 		lines2 = cv2.HoughLinesP(cvim1,rho = 1,theta = 1*np.pi/180,threshold = 1,minLineLength = 1,maxLineGap = 1)
 		out2 = self.output_lines(orig, lines2)
+		
+
 		
 		for points2 in lines2:
 			c = Segment()
