@@ -63,18 +63,21 @@ class ImageProcess:
 		cvim = cv2.bitwise_and(w_filter, img1)
 		lines1 = cv2.HoughLinesP(cvim,rho = 1,theta = 1*np.pi/180, threshold = 1,minLineLength = 1,maxLineGap = 1)
 		out1 = self.output_lines(orig, lines1)
-		line_normalized1 = (lines1 + arr_cutoff) * arr_ratio
 		#self.hough.publish(line_normalized1)
 		
-		for points in line_normalized1:
+		b = SegmentList()
+		
+		for points1 in line_normalized1:
 			s = Segment()
 			s.color = 0
+			line_normalized1 = (points1 + arr_cutoff) * arr_ratio
 			s.pixel_normalized[0].x1 = points[0]
 			s.pixel_normalized[0].y1 = points[1]
 			s.pixel_normalized[1].x2 = points[2]
 			s.pixel_normalized[1].y2 = points[3]
+			b.segments.append(s)
 			
-		
+		self.hough.publish()
 		
 		#Yellow Filtering
 		y_filter = cv2.inRange(cv2cropped, (20,100,100), (180,255,255))
@@ -82,7 +85,17 @@ class ImageProcess:
 		cvim1 = cv2.bitwise_and(y_filter, img1)
 		lines2 = cv2.HoughLinesP(cvim1,rho = 1,theta = 1*np.pi/180,threshold = 1,minLineLength = 1,maxLineGap = 1)
 		out2 = self.output_lines(orig, lines2)
-		line_normalized2 = (lines2 + arr_cutoff) * arr_ratio
+		
+		for points2 in line_normalized2:
+			c = Segment()
+			c.color = 0
+			line_normalized2 = (points2 + arr_cutoff) * arr_ratio
+			c.pixel_normalized[0].x1 = points[0]
+			c.pixel_normalized[0].y1 = points[1]
+			c.pixel_normalized[1].x2 = points[2]
+			c.pixel_normalized[1].y2 = points[3]
+			b.segments.append(c)
+
 		
 		
 		#h = Header(stamp=rospy.Time.now(), frame_id = "base")
