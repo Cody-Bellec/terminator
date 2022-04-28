@@ -67,14 +67,14 @@ class ImageProcess:
 		
 		b = SegmentList()
 		
-		for points1 in line_normalized1:
+		for points1 in lines1:
 			s = Segment()
 			s.color = 0
 			line_normalized1 = (points1 + arr_cutoff) * arr_ratio
-			s.pixel_normalized[0].x1 = points[0]
-			s.pixel_normalized[0].y1 = points[1]
-			s.pixel_normalized[1].x2 = points[2]
-			s.pixel_normalized[1].y2 = points[3]
+			s.pixel_normalized[0].x1 = line_normalized1[0]
+			s.pixel_normalized[0].y1 = line_normalized1[1]
+			s.pixel_normalized[1].x2 = line_normalized1[2]
+			s.pixel_normalized[1].y2 = line_normalized1[3]
 			d = b.segments.append(s)
 			
 		self.hough.publish(d)
@@ -86,14 +86,14 @@ class ImageProcess:
 		lines2 = cv2.HoughLinesP(cvim1,rho = 1,theta = 1*np.pi/180,threshold = 1,minLineLength = 1,maxLineGap = 1)
 		out2 = self.output_lines(orig, lines2)
 		
-		for points2 in line_normalized2:
+		for points2 in lines2:
 			c = Segment()
 			c.color = 0
 			line_normalized2 = (points2 + arr_cutoff) * arr_ratio
-			c.pixel_normalized[0].x1 = points[4]
-			c.pixel_normalized[0].y1 = points[5]
-			c.pixel_normalized[1].x2 = points[6]
-			c.pixel_normalized[1].y2 = points[7]
+			c.pixel_normalized[0].x1 = line_normalized2[4]
+			c.pixel_normalized[0].y1 = line_normalized2[5]
+			c.pixel_normalized[1].x2 = line_normalized2[6]
+			c.pixel_normalized[1].y2 = line_normalized2[7]
 			e = b.segments.append(c)
 
 		self.hough.publish(e)
