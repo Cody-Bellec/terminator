@@ -15,7 +15,7 @@ def SC(n):
 		rospy.logwarn("Service time for " +str(n) +" request is " +str(Stime2-Stime))
 		return NPower.sequence
 	except rospy.ServiceException as e:
-	print("Service call failure %s " %e)
+		print("Service call failure %s " %e)
 	        
         
 def AC(n):
