@@ -91,7 +91,7 @@ class ImageProcess:
 		
 		for points2 in lines2:
 			c = Segment()
-			c.color = 0
+			c.color = 1
 			line_normalized2 = (points2 + arr_cutoff) * arr_ratio
 			c.pixels_normalized[0].x = line_normalized2[0][0]
 			c.pixels_normalized[0].y = line_normalized2[0][1]
