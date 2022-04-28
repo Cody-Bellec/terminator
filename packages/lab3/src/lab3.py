@@ -4,7 +4,7 @@ import sys
 import rospy
 import cv2
 from std_msgs.msg import Header
-from duckietown_msgs.msg import SegmentList
+from duckietown_msgs.msg import SegmentList, Segment
 from sensor_msgs.msg import CompressedImage, Image
 from cv_bridge import CvBridge
 import numpy as np
@@ -71,10 +71,10 @@ class ImageProcess:
 			s = Segment()
 			s.color = 0
 			line_normalized1 = (points1 + arr_cutoff) * arr_ratio
-			s.pixel_normalized[0].x1 = line_normalized1[0]
-			s.pixel_normalized[0].y1 = line_normalized1[1]
-			s.pixel_normalized[1].x2 = line_normalized1[2]
-			s.pixel_normalized[1].y2 = line_normalized1[3]
+			s.pixels_normalized[0].x1 = line_normalized1[0]
+			s.pixels_normalized[0].y1 = line_normalized1[1]
+			s.pixels_normalized[1].x2 = line_normalized1[2]
+			s.pixels_normalized[1].y2 = line_normalized1[3]
 			d = b.segments.append(s)
 			
 		self.hough.publish(d)
@@ -90,10 +90,10 @@ class ImageProcess:
 			c = Segment()
 			c.color = 0
 			line_normalized2 = (points2 + arr_cutoff) * arr_ratio
-			c.pixel_normalized[0].x1 = line_normalized2[4]
-			c.pixel_normalized[0].y1 = line_normalized2[5]
-			c.pixel_normalized[1].x2 = line_normalized2[6]
-			c.pixel_normalized[1].y2 = line_normalized2[7]
+			c.pixels_normalized[0].x1 = line_normalized2[4]
+			c.pixels_normalized[0].y1 = line_normalized2[5]
+			c.pixels_normalized[1].x2 = line_normalized2[6]
+			c.pixels_normalized[1].y2 = line_normalized2[7]
 			e = b.segments.append(c)
 
 		self.hough.publish(e)
