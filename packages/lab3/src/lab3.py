@@ -90,10 +90,10 @@ class ImageProcess:
 			c = Segment()
 			c.color = 0
 			line_normalized2 = (points2 + arr_cutoff) * arr_ratio
-			c.pixel_normalized[0].x1 = points[0]
-			c.pixel_normalized[0].y1 = points[1]
-			c.pixel_normalized[1].x2 = points[2]
-			c.pixel_normalized[1].y2 = points[3]
+			c.pixel_normalized[0].x1 = points[4]
+			c.pixel_normalized[0].y1 = points[5]
+			c.pixel_normalized[1].x2 = points[6]
+			c.pixel_normalized[1].y2 = points[7]
 			e = b.segments.append(c)
 
 		self.hough.publish(e)
