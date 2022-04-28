@@ -12,7 +12,7 @@ def SC(n):
 		Fibonacci = rospy.ServiceProxy('calc_fibonacci', Fibonacci)
 		NPower = Fibonacci(n)
 		Stime2 = rospy.get_time()
-		rospy.logwarn("Service time for " +str(n) +" request is " +str(ServT2-ServT1))
+		rospy.logwarn("Service time for " +str(n) +" request is " +str(Stime2-Stime))
 	return nth.sequence
 	except rospy.ServiceException as e:
 	print("Service call failure %s " %e)
