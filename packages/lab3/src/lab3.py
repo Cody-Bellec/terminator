@@ -75,9 +75,9 @@ class ImageProcess:
 			s.pixel_normalized[0].y1 = points[1]
 			s.pixel_normalized[1].x2 = points[2]
 			s.pixel_normalized[1].y2 = points[3]
-			b.segments.append(s)
+			d = b.segments.append(s)
 			
-		self.hough.publish()
+		self.hough.publish(d)
 		
 		#Yellow Filtering
 		y_filter = cv2.inRange(cv2cropped, (20,100,100), (180,255,255))
@@ -94,9 +94,9 @@ class ImageProcess:
 			c.pixel_normalized[0].y1 = points[1]
 			c.pixel_normalized[1].x2 = points[2]
 			c.pixel_normalized[1].y2 = points[3]
-			b.segments.append(c)
+			e = b.segments.append(c)
 
-		
+		self.hough.publish(e)
 		
 		#h = Header(stamp=rospy.Time.now(), frame_id = "base")
 		#out3 = self.output_lines(orig, line_normalized1)
