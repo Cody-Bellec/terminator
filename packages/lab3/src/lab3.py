@@ -7,6 +7,7 @@ from std_msgs.msg import Header
 from duckietown_msgs.msg import SegmentList, Segment
 from sensor_msgs.msg import CompressedImage, Image
 from cv_bridge import CvBridge
+from  
 import numpy as np
 
 class ImageProcess:
@@ -71,13 +72,12 @@ class ImageProcess:
 			s = Segment()
 			s.color = 0
 			line_normalized1 = (points1 + arr_cutoff) * arr_ratio
-			s.pixels_normalized[0].x1 = line_normalized1[0]
-			s.pixels_normalized[0].y1 = line_normalized1[1]
-			s.pixels_normalized[1].x2 = line_normalized1[2]
-			s.pixels_normalized[1].y2 = line_normalized1[3]
-			d = b.segments.append(s)
-			
-		self.hough.publish(d)
+			#rospy.logwarn(line_normalized1)	
+			s.pixels_normalized[0].x = line_normalized1[0][0]
+			s.pixels_normalized[0].y = line_normalized1[0][1]
+			s.pixels_normalized[1].x = line_normalized1[0][2]
+			s.pixels_normalized[1].y = line_normalized1[0][3]
+			b.segments.append(s)
 		
 		#Yellow Filtering
 		y_filter = cv2.inRange(cv2cropped, (20,100,100), (180,255,255))
@@ -90,13 +90,13 @@ class ImageProcess:
 			c = Segment()
 			c.color = 0
 			line_normalized2 = (points2 + arr_cutoff) * arr_ratio
-			c.pixels_normalized[0].x1 = line_normalized2[4]
-			c.pixels_normalized[0].y1 = line_normalized2[5]
-			c.pixels_normalized[1].x2 = line_normalized2[6]
-			c.pixels_normalized[1].y2 = line_normalized2[7]
-			e = b.segments.append(c)
+			c.pixels_normalized[0].x = line_normalized2[0][0]
+			c.pixels_normalized[0].y = line_normalized2[0][1]
+			c.pixels_normalized[1].x = line_normalized2[0][2]
+			c.pixels_normalized[1].y = line_normalized2[0][3]
+			b.segments.append(c)
 
-		self.hough.publish(e)
+		self.hough.publish(b)
 		
 		#h = Header(stamp=rospy.Time.now(), frame_id = "base")
 		#out3 = self.output_lines(orig, line_normalized1)
