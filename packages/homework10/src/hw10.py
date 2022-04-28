@@ -6,7 +6,7 @@ import example_action_server.msg
 
 
 def SC(n):
-	rospy.warning()
+	rospy.logwarn("SCTest")
 	Stime = rospy.get_time()
 	rospy.wait_for_service('calc_fibonacci')
 	try:
@@ -29,17 +29,20 @@ def AC(n):
 	ACtime2 = rospy.get_time()
 	client.wait_for_result()
 	ACtime3 = rospy.get_time()
+	rospy.logwarn("SCTest")
 	
 	time_sending = ACtime2 - ACtime1
 	rospy.logwarn("Action for " +str(n)+ "the send time is " +str(time_sending))
 	waiting_time = ACtime3 - ACtime2
 	rospy.logwarn("Action" +str(n)+ "the wait time is " +str(waiting_time))
+	rospy.logwarn("SCTest")
 	
 	return client.get_result()
 
     
 if __name__=="__main__":
     rospy.init_node('hw10')
+    rospy.logwarn("SCTest")
     SCOrder3 = SC(3)
     rospy.logwarn("Service Order 3 is " +str(SCOrder3))
     SCOrder15= SC(15)
@@ -48,5 +51,6 @@ if __name__=="__main__":
     rospy.logwarn("Action order 3 is " +str(ACOrder3))
     ACOrder15 = AC(15)
     rospy.logwarn("Action order 15 is " +str(ACOrder15))
+    rospy.logwarn("SCTest")
     
     rospy.spin()
