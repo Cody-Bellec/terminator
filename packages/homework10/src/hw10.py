@@ -10,8 +10,8 @@ def SC(n):
 	Stime = rospy.get_time()
 	rospy.wait_for_service('calc_fibonacci')
 	try:
-		Fibonacci = rospy.ServiceProxy('calc_fibonacci', Fibonacci)
-		NPower = Fibonacci(n)
+		Fibo = rospy.ServiceProxy('calc_fibonacci', Fibonacci)
+		NPower = Fibo(n)
 		Stime2 = rospy.get_time()
 		rospy.loginfo("Service time for " +str(n) +" request is " +str(Stime2-Stime))
 		return NPower.sequence
