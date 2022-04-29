@@ -37,7 +37,7 @@ def AC(n):
 	rospy.logwarn("Action" +str(n)+ "the wait time is " +str(waiting_time))
 	rospy.logwarn("SCTest3")
 	
-	return client.get_result()
+	return CL.get_result()
 
     
 if __name__=="__main__":
