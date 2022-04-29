@@ -53,4 +53,3 @@ if __name__=="__main__":
     rospy.logwarn("Action order 15 is " +str(ACOrder15))
     rospy.logwarn("SCTest5")
     
-    rospy.spin()

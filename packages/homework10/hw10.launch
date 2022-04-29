@@ -1,8 +1,8 @@
 <launch>
 
-  <group ns="homework10">
+  <!--<group ns="homework10">-->
     <node pkg="homework10" name="hw10" type="hw10.py"/>
-  </group>
+  <!--</group>-->
   
   <include file="/code/catkin_ws/src/terminator/eece5560/packages/example_action_server/launch/fibonacci.launch"/>
   <include file="/code/catkin_ws/src/terminator/eece5560/packages/example_service/launch/fibonacci.launch"/>
