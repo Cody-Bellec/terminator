@@ -25,9 +25,9 @@ def AC(n):
 	FGoal = example_action_server.msg.FibonacciGoal(order=n)
 
 	ACtime1 = rospy.get_time()
-	client.send_goal(FGoal)
+	CL.send_goal(FGoal)
 	ACtime2 = rospy.get_time()
-	client.wait_for_result()
+	CL.wait_for_result()
 	ACtime3 = rospy.get_time()
 	rospy.logwarn("SCTest2")
 	
